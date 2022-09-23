@@ -2,8 +2,10 @@ from flask import Flask
 from flask_cors import CORS
 from flask_injector import FlaskInjector
 from injector import Binder, singleton
+from logging import Logger, getLogger
 
 from core.setting import SettingLoader, AppSettings
+from core.logger import LoggerBuilder
 from controllers.apis import api
 
 
@@ -32,7 +34,11 @@ class AppBuilder:
         # Configure application settings
         app_settings = SettingLoader.load_setting().get_setting()
 
+        # Setup logger
+        LoggerBuilder.setup()
+
         binder.bind(AppSettings, to=app_settings, scope=singleton)
+        binder.bind(Logger, to=getLogger("production"))
         return
 
     @classmethod
