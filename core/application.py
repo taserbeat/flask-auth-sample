@@ -4,10 +4,13 @@ from flask_injector import FlaskInjector
 from injector import Binder, singleton
 from logging import Logger, getLogger
 
+from core.auth import ISimpleTokenAuthorizer, SimpleTokenAuthorizer
 from core.setting import SettingLoader, AppSettings
 from core.logger import LoggerBuilder
 from controllers.apis import api
+from repositories.user_repos import IUserRepository, TempUserRepository
 from services.weather_service import IWeatherService, WeatherService
+from services.simple_token_service import ISimpleTokenService, SimpleTokenService
 
 
 class AppBuilder:
@@ -40,6 +43,10 @@ class AppBuilder:
 
         binder.bind(AppSettings, to=app_settings, scope=singleton)
         binder.bind(Logger, to=getLogger("production"))
+
+        binder.bind(IUserRepository, to=TempUserRepository)
+        binder.bind(ISimpleTokenService, to=SimpleTokenService)
+        binder.bind(ISimpleTokenAuthorizer, to=SimpleTokenAuthorizer)
 
         binder.bind(IWeatherService, to=WeatherService)
         return
