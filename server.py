@@ -1,5 +1,7 @@
 from flask import Flask
 
+from core.setting import SettingLoader
+
 app = Flask(__name__)
 
 
@@ -10,5 +12,6 @@ def index(path):
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app_settings = SettingLoader.load_setting().get_setting()
+    app.run(host=app_settings.url, port=app_settings.listen_port, debug=True)
     exit(0)
