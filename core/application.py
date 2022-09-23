@@ -7,6 +7,7 @@ from logging import Logger, getLogger
 from core.setting import SettingLoader, AppSettings
 from core.logger import LoggerBuilder
 from controllers.apis import api
+from services.weather_service import IWeatherService, WeatherService
 
 
 class AppBuilder:
@@ -39,6 +40,8 @@ class AppBuilder:
 
         binder.bind(AppSettings, to=app_settings, scope=singleton)
         binder.bind(Logger, to=getLogger("production"))
+
+        binder.bind(IWeatherService, to=WeatherService)
         return
 
     @classmethod

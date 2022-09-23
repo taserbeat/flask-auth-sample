@@ -2,6 +2,7 @@ from flask import Blueprint, Response
 from logging import Logger
 
 from controllers.healthcheck_controller import healthcheck_api
+from controllers.weather_controller import weather_api
 
 api = Blueprint("api", __name__, url_prefix="/api")
 
@@ -15,3 +16,4 @@ def error_404(path: str, logger: Logger) -> Response:
 
 
 api.register_blueprint(healthcheck_api)
+api.register_blueprint(weather_api)
