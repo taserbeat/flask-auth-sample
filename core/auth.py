@@ -24,27 +24,27 @@ def simple_token_required(action):
 
         if simple_token is None:
             logger.error(f"'{header_key}' is not set.")
-            return Response(status=403)
+            return Response(status=401)
 
         try:
             (username, password) = sts.decode_token(simple_token)
         except Exception as e:
             logger.error(f"invalid token error : {str(e)}")
-            return Response(status=403)
+            return Response(status=401)
 
         try:
             user = user_repos.get_first_user(username)
         except Exception as e:
             logger.error(f"user repository error : {e}")
-            return Response(status=403)
+            return Response(status=401)  # this may be better status=500
 
         if user is None:
             logger.error(f"username: '{username}' is not exist.")
-            return Response(status=403)
+            return Response(status=401)
 
         if user.password != password:
             logger.error(f"invalid token requested by username: '{username}'")
-            return Response(status=403)
+            return Response(status=401)
 
         response = action(user=user, *args, **kwargs)
 
