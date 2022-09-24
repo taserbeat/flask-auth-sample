@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8c4475e2163a918f3781765691c8fb73d649ab062959e076080a6b43c1292749"
+            "sha256": "43ba85589813ad8bd1080206720f69b8c9eb674e25fcbc7649d93d203e293036"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -40,14 +40,6 @@
             "index": "pypi",
             "version": "==3.0.10"
         },
-        "flask-httpauth": {
-            "hashes": [
-                "sha256:a237e4c8ec1d339298a0eb88e5af2ca36117949b621631649462800e57e1ba37",
-                "sha256:f7199e7bad20d5b68b3f0b62bddfca7637c55087e9d02f605ae26e0de479fd94"
-            ],
-            "index": "pypi",
-            "version": "==4.7.0"
-        },
         "flask-injector": {
             "hashes": [
                 "sha256:b5330106b02352d55cd2fd8e44b649a2fede5c17d703eea8ea72591314ff0b63",
@@ -55,14 +47,6 @@
             ],
             "index": "pypi",
             "version": "==0.14.0"
-        },
-        "flask-swagger-ui": {
-            "hashes": [
-                "sha256:a370199a780d678b32e38f1be10d4d81efa0ee63e9fe2fb766ff1a4b6c37dac8",
-                "sha256:c951928fe4592d3561b543e0e1ca32703f55d3474de86c894a9d27f795d96c83"
-            ],
-            "index": "pypi",
-            "version": "==4.11.1"
         },
         "importlib-metadata": {
             "hashes": [
