@@ -1,6 +1,6 @@
-from flask import Blueprint, Response, jsonify, request
+from flask import Blueprint, Response, jsonify
 
-from core.auth import ISimpleTokenAuthorizer
+from core import auth
 from services.weather_service import IWeatherService
 
 
@@ -8,14 +8,9 @@ weather_api = Blueprint("weather", __name__, url_prefix="/weather")
 
 
 @weather_api.route("", methods=["GET"])
-def get_weather(authorizer: ISimpleTokenAuthorizer, weather_service: IWeatherService):
-    token = request.headers.get("Authorization")
-    user = authorizer.authorize(token)
-    if user is None:
-        return Response(status=403)
-
+@auth.simple_token_required
+def get_weather(weather_service: IWeatherService, **kwargs):
     weather = weather_service.create_weather()
-
     response = {
         "temperature": weather.temperature,
         "forecast": weather.forecast,

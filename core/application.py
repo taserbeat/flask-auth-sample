@@ -4,7 +4,6 @@ from flask_injector import FlaskInjector
 from injector import Binder, singleton
 from logging import Logger, getLogger
 
-from core.auth import ISimpleTokenAuthorizer, SimpleTokenAuthorizer
 from core.setting import SettingLoader, AppSettings
 from core.logger import LoggerBuilder
 from controllers.apis import api
@@ -46,7 +45,6 @@ class AppBuilder:
 
         binder.bind(IUserRepository, to=TempUserRepository)
         binder.bind(ISimpleTokenService, to=SimpleTokenService)
-        binder.bind(ISimpleTokenAuthorizer, to=SimpleTokenAuthorizer)
 
         binder.bind(IWeatherService, to=WeatherService)
         return
