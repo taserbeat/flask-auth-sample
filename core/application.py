@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_injector import FlaskInjector
 from injector import Binder, singleton
 from logging import Logger, getLogger
+from core.initialize import AppInitializer, IAppInitializer
 
 from core.setting import SettingLoader, AppSettings
 from core.logger import LoggerBuilder
@@ -42,6 +43,7 @@ class AppBuilder:
 
         binder.bind(AppSettings, to=app_settings, scope=singleton)
         binder.bind(Logger, to=getLogger("production"))
+        binder.bind(IAppInitializer, to=AppInitializer)
 
         binder.bind(IUserRepository, to=TempUserRepository)
         binder.bind(ISimpleTokenService, to=SimpleTokenService)
