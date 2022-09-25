@@ -43,3 +43,31 @@ pip install ...
 
 python server.py
 ```
+
+# Example
+
+You can login as the built-in default user.
+
+| username | password |
+| -------- | -------- |
+| admin    | admin    |
+| example  | temp     |
+
+```bash
+curl -X POST http://localhost:5000/auth/jwt -H "Content-Type:application/json" -d "{\"username\": \"admin\", \"password\": \"admin\"}"
+```
+
+If the login is successful, your JWT token is returned as the response.
+
+```json
+{
+  "jwt": "<Your JWT token here>"
+}
+```
+
+Now you can access to the API required JWT authentication.  
+As below, JWT token should be included in `Authorization` header.
+
+```bash
+curl http://localhost:5000/api/weather/jwt -H "Authorization:<Your JWT token here>"
+```
