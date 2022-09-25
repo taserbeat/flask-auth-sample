@@ -8,7 +8,9 @@ from core.initialize import AppInitializer, IAppInitializer
 from core.setting import SettingLoader, AppSettings
 from core.logger import LoggerBuilder
 from controllers.apis import api
+from controllers.auth_controller import auth_endpoints
 from repositories.user_repos import IUserRepository, TempUserRepository
+from services.jwt_service import IJwtService, JwtService
 from services.weather_service import IWeatherService, WeatherService
 from services.simple_token_service import ISimpleTokenService, SimpleTokenService
 
@@ -22,6 +24,7 @@ class AppBuilder:
     @classmethod
     def build(self, app: Flask, cors_enable=True) -> 'AppBuilder':
         app.register_blueprint(api)
+        app.register_blueprint(auth_endpoints)
 
         if cors_enable:
             CORS(app=app)
@@ -47,6 +50,7 @@ class AppBuilder:
 
         binder.bind(IUserRepository, to=TempUserRepository)
         binder.bind(ISimpleTokenService, to=SimpleTokenService)
+        binder.bind(IJwtService, to=JwtService)
 
         binder.bind(IWeatherService, to=WeatherService)
         return
