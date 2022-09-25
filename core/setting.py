@@ -9,10 +9,12 @@ import typing as t
 class AppSettings:
     FLASK_LISTEN_PORT_KEY = "FLASK_LISTEN_PORT"
     FLASK_URL_KEY = "FLASK_URL"
+    FLASK_JWT_SECRET_KEY = "FLASK_JWT_SECRET"
 
     def __init__(self) -> None:
         self.__listen_port = 5000
         self.__url = "0.0.0.0"
+        self.__jwt_secret = "my_secret_key"
 
         return
 
@@ -45,6 +47,7 @@ class AppSettings:
         # Update settings
         self.__listen_port = app_settings.get(self.FLASK_LISTEN_PORT_KEY, self.__listen_port)
         self.__url = app_settings.get(self.FLASK_URL_KEY, self.__url)
+        self.__jwt_secret = app_settings.get(self.FLASK_JWT_SECRET_KEY, self.__jwt_secret)
 
         return self
 
@@ -56,6 +59,7 @@ class AppSettings:
         # Update settings
         self.__listen_port = os.environ.get(self.FLASK_LISTEN_PORT_KEY, self.__listen_port)
         self.__url = os.environ.get(self.FLASK_URL_KEY, self.__url)
+        self.__jwt_secret = os.environ.get(self.FLASK_JWT_SECRET_KEY, self.__jwt_secret)
 
         return self
 
@@ -93,6 +97,13 @@ class AppSettings:
         Server publical url address
         """
         return self.__url
+
+    @property
+    def jwt_secret(self) -> str:
+        """
+        The secret used by JWT Authentication
+        """
+        return self.__jwt_secret
 
 
 class SettingLoader:
